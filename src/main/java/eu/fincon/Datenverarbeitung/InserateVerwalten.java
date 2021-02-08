@@ -2,13 +2,11 @@ package eu.fincon.Datenverarbeitung;
 
 import com.relevantcodes.extentreports.LogStatus;
 import eu.fincon.Logging.ExtendetLogger;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.*;
 // SQL Imports
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.Statement;
-import java.sql.SQLException;
+import java.sql.*;
 // Time Imports
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -77,23 +75,73 @@ public class InserateVerwalten {
         return strTabellenName;
     }
     public void insertIntoSQLite(Inserat piInserat, Connection pConnection, String pstrTabellenname, int pintID) {
-        Statement stmt = null;
+        PreparedStatement stmt = null;
+
+        //String sql = "INSERT INTO "+ pstrTabellenname +" (" + Inserat.getSQLiteSpalten() + ") VALUES(" + piInserat.getInseratStringSQLite() + ")";
+
+        String[] strsplittedValues = piInserat.getInseratStringSQLite().split("\",\"");
+        String sql = getBaseInsertString(pstrTabellenname, strsplittedValues);
+        String ausgabe = "";
+
+        ExtendetLogger.LogEntry(LogStatus.INFO, "Creating SQL Insert Statement");
         try {
-            stmt = pConnection.createStatement();
+            stmt = pConnection.prepareStatement(sql);
         } catch (SQLException e) {
-            ExtendetLogger.LogEntry(LogStatus.ERROR, "Failed to create Statement for Database");
+            ExtendetLogger.LogEntry(LogStatus.FATAL, "Error preparing Statement - " + sql);
+            System.out.println("Error preparing Statement - " + sql);
+            e.printStackTrace();
         }
-        String sql = "INSERT INTO "+ pstrTabellenname +" (" + Inserat.getSQLiteSpalten() + ") VALUES(" + piInserat.getInseratStringSQLite() + ")";
+        ExtendetLogger.LogEntry(LogStatus.INFO, "Setting Insert Values in Statement");
+        for (int i=1; i<=strsplittedValues.length;i++)
+        {
+            ausgabe = "Replacing " + i + " with - " + strsplittedValues[i-1];
+            System.out.println(ausgabe);
+            ExtendetLogger.LogEntry(LogStatus.INFO, ausgabe);
+            try {
+                stmt.setString(i, strsplittedValues[i-1].trim());
+            } catch (SQLException e) {
+                ExtendetLogger.LogEntry(LogStatus.FATAL, "Error setting String # " + sql + " to " + strsplittedValues[i-1].trim());
+                System.out.println("Error setting String # " + sql + " to " + strsplittedValues[i-1].trim());
+                e.printStackTrace();
+            }
+        }
+
         try {
-            stmt.execute(sql);
-            ExtendetLogger.LogEntry(LogStatus.INFO, sql);
-            pConnection.commit();
+            ExtendetLogger.LogEntry(LogStatus.INFO, "Insert Statement - " + stmt.toString());
+            System.out.println("Insert Statement - " + stmt.toString());
+            stmt.execute();
+            ExtendetLogger.LogEntry(LogStatus.PASS, "Insert Statement Executed");
+
         } catch (SQLException e) {
             ExtendetLogger.LogEntry(LogStatus.ERROR, "Failed to Execute Insert Statement - " + sql);
             ExtendetLogger.LogEntry(LogStatus.ERROR, e.getMessage());
+            e.printStackTrace();
         }
 
+        try {
+            stmt.close();
+            pConnection.commit();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+
     }
+
+    @NotNull
+    private String getBaseInsertString(String pstrTabellenname, String[] strsplittedValues) {
+        int intNumberOfValues = strsplittedValues.length;
+        String strValuesPlaceHolder = "";
+        for (int i=0;i<intNumberOfValues;i++)
+        {
+            if (i>0)
+                strValuesPlaceHolder = strValuesPlaceHolder + ",?";
+            else
+                strValuesPlaceHolder = "?";
+        }
+        return "INSERT INTO "+ pstrTabellenname +" (" + Inserat.getSQLiteSpalten() + ") VALUES("+strValuesPlaceHolder+")";
+    }
+
     // End Database Functions
     public InserateVerwalten(List<Inserat> piwInserate)
     {

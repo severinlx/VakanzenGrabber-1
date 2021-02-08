@@ -45,7 +45,7 @@ public class FreelanceDEAnmeldemaske extends  FreelanceDEGrabben {
             // =====================================================================
             return true;
         }
-        if (seitentitelHolen().contains("Freelancer, Freiberufler und ") == false)
+        if (seitentitelHolen().contains("Freelancer, Freiberufler") == false)
         {
             LogEntry(LogStatus.FAIL, "Der Seitentitel entspricht nicht dem erwarteten Titel zur Anmeldung");
             return false;

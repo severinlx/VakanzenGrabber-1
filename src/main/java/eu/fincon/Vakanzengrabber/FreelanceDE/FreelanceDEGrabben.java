@@ -11,7 +11,7 @@ import static eu.fincon.Logging.ExtendetLogger.LogEntry;
 // Enthält FreelanceDe spezifische Informationen
 // =====================================================================
 public class FreelanceDEGrabben extends VakanzenGrabber {
-    String StrXPathCookieAccept = "//a[@id='CybotCookiebotDialogBodyLevelButtonLevelOptinAllowallSelection']";
+    String StrXPathCookieAccept = "//a[@id='CybotCookiebotDialogBodyLevelButtonLevelOptinDeclineAll']";
     //=====================================================================
     // Basis Methode für FreelanceDE
     // =====================================================================
@@ -49,7 +49,7 @@ public class FreelanceDEGrabben extends VakanzenGrabber {
         //=====================================================================
         // Ruft die Methode "webseiteStarten" aus der Basis-Klasse auf
         // =====================================================================
-        if (!webseiteStarten(wWebseite.strURL, "Freelancer, Freiberufler und"))
+        if (!webseiteStarten(wWebseite.strURL, "Freelancer, Freiberufler"))
         {
             LogEntry(LogStatus.FAIL, "Fehler beim Starten der Webseite");
             assert (1==0);
