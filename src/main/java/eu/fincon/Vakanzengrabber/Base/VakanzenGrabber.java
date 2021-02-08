@@ -11,6 +11,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.By; //Identifikationstyp xpath, oder class name, id  etc.
 import org.openqa.selenium.WebElement; //das identifizierte Element funktionen ausführen zB klick
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.events.EventFiringWebDriver;
 import org.openqa.selenium.support.events.WebDriverEventListener;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -86,7 +87,10 @@ public class VakanzenGrabber {
         // Webdriver initialisieren:
         //=====================================================================
         try {
-            gObjWebDriver = new EventFiringWebDriver(new ChromeDriver());
+            ChromeOptions coOptions = new ChromeOptions();
+            coOptions.setHeadless(Config.blnHeadless);
+            ChromeDriver cdDriver = new ChromeDriver(coOptions);
+            gObjWebDriver = new EventFiringWebDriver(cdDriver);
             ExtendetLogger.LogEntry(LogStatus.INFO, "Webdriver wurde erzeugt");
             WebDriverListener activity = new WebDriverListener();
             gObjWebDriver.register(activity);

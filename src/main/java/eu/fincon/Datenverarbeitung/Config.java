@@ -23,6 +23,7 @@ public class Config {
     public static Level lLogLevel;
     public static String strDatabasePfad;
     public static String strDatabaseName;
+    public static boolean blnHeadless = true;
     public static void init()
     {
         ExtendetLogger.CreateChild("Konfiguration laden");
@@ -32,6 +33,7 @@ public class Config {
         SpeicherzielLaden();
         setBrowser();
         setLogLevel();
+        setHeadless();
         ExtendetLogger.AppendChild();
     }
     public static void SpeicherzielLaden()
@@ -147,12 +149,28 @@ public class Config {
                 lLogLevel = Level.ALL;
         }
     }
+    static void setHeadless()
+    {
+        //=====================================================================
+        // Holt den Wert für das Element Headless aus der Config und setzt
+        // die statische Variable bBrowser auf den entsprechenden Wert
+        // =====================================================================
+        String strHeadlessAusConfig = getWertAusConfig("", "Headless");
+        if (strHeadlessAusConfig.toLowerCase().contentEquals("true") || strHeadlessAusConfig.toLowerCase().contentEquals("ja"))
+        {
+            blnHeadless = true;
+        }
+        else
+        {
+            blnHeadless = false;
+        }
+    }
     static Element getRootElement()
     {
         //=====================================================================
         // Prüfen ob die Config-Datei vorhanden ist
         // =====================================================================
-        if (new File(strConfigFilePath).exists() == false)
+        if (!new File(strConfigFilePath).exists())
         {
             ExtendetLogger.LogEntry(LogStatus.INFO,"Datei nicht gefunden - " + strConfigFilePath);
             return null;
