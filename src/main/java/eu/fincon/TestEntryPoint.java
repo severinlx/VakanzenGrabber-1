@@ -1,3 +1,5 @@
+package eu.fincon;
+
 import com.relevantcodes.extentreports.LogStatus;
 import eu.fincon.Datenverarbeitung.Config;
 import eu.fincon.Datenverarbeitung.Datentreiber;
@@ -8,8 +10,8 @@ import eu.fincon.Logging.ExtendetLogger;
 import java.util.List;
 import java.util.logging.Level;
 
-public class Main {
-    public static void main(String[] args) {
+public class TestEntryPoint {
+    public static void runTest() {
         //=====================================================================
         // Logger setup
         // =====================================================================
