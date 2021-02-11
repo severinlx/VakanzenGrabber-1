@@ -21,7 +21,7 @@ jobs:
         settings-path: ${{ github.workspace }} # location for the settings.xml file
 
     - name: Build with Maven
-      run: mvn -B package -DskipTests --file pom.xml
+      run: mvn clean package spring-boot:repackage -DskipTests --file pom.xml
     
   deploy:
     runs-on: ubuntu-latest

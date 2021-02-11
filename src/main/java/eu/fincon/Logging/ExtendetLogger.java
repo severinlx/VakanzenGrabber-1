@@ -32,7 +32,7 @@ public class ExtendetLogger {
     {
         logger = Logger.getLogger(pstrName);
 
-        Extendlogger = new ExtentReports("C:\\Users\\mnaas\\IdeaProjects\\VakanzenGrabber\\ext_"+strLogFilePath, NetworkMode.OFFLINE);
+        Extendlogger = new ExtentReports(".\\logs\\"+strLogFilePath, NetworkMode.OFFLINE);
         ExtendTestLogParent = Extendlogger.startTest(pstrName);
 
         createFileHandler();
