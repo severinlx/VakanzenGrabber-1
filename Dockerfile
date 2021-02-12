@@ -2,6 +2,9 @@
 #docker build -t chrome:2.0 -f Dockerfile.dev .
 
 FROM openjdk:11
+RUN mkdir -p /logs
+RUN mkdir -p /results
+
 # Install Chrome
 RUN apt-get update && apt-get install -y \
 	apt-transport-https \
@@ -28,6 +31,18 @@ RUN apt-get update && apt-get install -y \
 # Add chrome user
 RUN groupadd -r chrome && useradd -r -g chrome -G audio,video chrome \
     && mkdir -p /home/chrome/Downloads && chown -R chrome:chrome /home/chrome
+RUN apt-get update && apt-get install -y nano
+
+RUN chmod ugo+w /var
+RUN chmod ugo+w /logs
+ADD ./extentreports /extentreports
+RUN chmod -R ugo+w /extentreports
+
+ADD ./config.xml config.xml
+RUN chmod -R ugo+w config.xml
+
+ADD ./Datentreiber.xlsx Datentreiber.xlsx
+RUN chmod ugo+w Datentreiber.xlsx
 
 # Run Chrome as non privileged user
 USER chrome
