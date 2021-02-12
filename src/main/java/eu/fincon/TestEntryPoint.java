@@ -19,13 +19,15 @@ public class TestEntryPoint {
         Config.init();
         System.out.println("after logger init");
         List<Testdatum> lTestdatumListe = Datentreiber.getTestdatenEXCEL();
-        //ExtendetLogger.LogEntry(LogStatus.INFO,"Es werden "+Config.strarrayWebseitenListe.length+" Webseiten geprüft");
+        ExtendetLogger.LogEntry(LogStatus.INFO,"Es werden "+Config.strarrayWebseitenListe.length+" Webseiten geprüft");
         System.out.println("after logger info");
         ExtendetLogger.LogEntry(LogStatus.INFO, "say smth");
         ExtendetLogger.LogEntry(LogStatus.INFO,"Es werden "+lTestdatumListe.size()+" Testdaten pro Seite geprüft");
 
         // Es wird eine Schleif über alle Einträge des Testdatentreibers gelaufen
+        System.out.println("config liste: " + Config.strarrayWebseitenListe.length);
         for (Webseite wWebseite : Config.strarrayWebseitenListe) {
+            System.out.println("in der for schleife");
             for (Testdatum tTestdatum : lTestdatumListe) {
                 ExtendetLogger.CreateChild(wWebseite.eSeite.toString() + "_" + tTestdatum.strSuchbegriff);
                 ExtendetLogger.LogEntry(LogStatus.INFO,"Webseite - "+wWebseite.strURL+

@@ -41,6 +41,9 @@ RUN chmod -R ugo+w /extentreports
 ADD ./config.xml config.xml
 RUN chmod -R ugo+w config.xml
 
+ADD ./Datentreiber.xlsx Datentreiber.xlsx
+RUN chmod ugo+w Datentreiber.xlsx
+
 # Run Chrome as non privileged user
 USER chrome
 
