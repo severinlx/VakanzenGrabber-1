@@ -1,5 +1,8 @@
 package eu.fincon;
 
+import com.relevantcodes.extentreports.LogStatus;
+import eu.fincon.Datenverarbeitung.Config;
+import eu.fincon.Logging.ExtendetLogger;
 import org.springframework.boot.SpringApplication;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -12,12 +15,7 @@ public class Controller {
     @RequestMapping(value = "/get/results", method = RequestMethod.GET)
     @ResponseBody
     public String getResults() {
-        try {
-            TestEntryPoint.runTest();
-        } catch (Exception e){
-            return "Greetings from Spring Boot, there was an Error while running the tests!";
-        }
-
+        TestEntryPoint.runTest();
         return "Greetings from Spring Boot!";
     }
 }

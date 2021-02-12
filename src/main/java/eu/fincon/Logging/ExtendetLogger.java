@@ -30,13 +30,13 @@ public class ExtendetLogger {
     // =====================================================================
     public static void setup(String pstrName)
     {
-        logger = Logger.getLogger(pstrName);
+        //logger = Logger.getLogger(pstrName);
 
-        Extendlogger = new ExtentReports(".\\logs\\"+strLogFilePath, NetworkMode.OFFLINE);
+        Extendlogger = new ExtentReports(System.getProperty("user.dir")+"\\logs\\", NetworkMode.OFFLINE);
         ExtendTestLogParent = Extendlogger.startTest(pstrName);
 
-        createFileHandler();
-        setLogLevel(Level.ALL);
+        //createFileHandler();
+        //setLogLevel(Level.ALL);
     }
     //=====================================================================
     // Schließt den Logger ab

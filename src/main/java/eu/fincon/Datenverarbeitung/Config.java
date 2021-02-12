@@ -27,7 +27,7 @@ public class Config {
     public static void init()
     {
         ExtendetLogger.CreateChild("Konfiguration laden");
-        ExtendetLogger.setLogLevel(lLogLevel);
+        //ExtendetLogger.setLogLevel(lLogLevel);
         DatabaseLaden();
         WebseitenlisteLaden();
         SpeicherzielLaden();

@@ -13,34 +13,24 @@ import java.util.logging.Level;
 
 public class TestEntryPoint {
     public static void runTest() {
-        //=====================================================================
-        // Logger setup
-        // =====================================================================
-        ExtendetLogger.setup("Vakanzengrabber");
-        //=====================================================================
         // Eine Liste (Typ Testdatum) wird aus der übergebenen Datei erstellt
-        // =====================================================================
-        List<Testdatum> lTestdatumListe = Datentreiber.getTestdatenEXCEL();
-        //=====================================================================
-        // Config Laden
-        // =====================================================================
+        System.out.println("before logger");
+        ExtendetLogger.setup("Vakanzengrabber");
         Config.init();
-        //=====================================================================
-        // Tests werden ermittelt und geloggt
-        // =====================================================================
-        ExtendetLogger.LogEntry(LogStatus.INFO,"Es werden "+Config.strarrayWebseitenListe.length+" Webseiten geprüft");
+        System.out.println("after logger init");
+        List<Testdatum> lTestdatumListe = Datentreiber.getTestdatenEXCEL();
+        //ExtendetLogger.LogEntry(LogStatus.INFO,"Es werden "+Config.strarrayWebseitenListe.length+" Webseiten geprüft");
+        System.out.println("after logger info");
+        ExtendetLogger.LogEntry(LogStatus.INFO, "say smth");
         ExtendetLogger.LogEntry(LogStatus.INFO,"Es werden "+lTestdatumListe.size()+" Testdaten pro Seite geprüft");
-        //=====================================================================
+
         // Es wird eine Schleif über alle Einträge des Testdatentreibers gelaufen
-        // ====================================================================
         for (Webseite wWebseite : Config.strarrayWebseitenListe) {
             for (Testdatum tTestdatum : lTestdatumListe) {
                 ExtendetLogger.CreateChild(wWebseite.eSeite.toString() + "_" + tTestdatum.strSuchbegriff);
                 ExtendetLogger.LogEntry(LogStatus.INFO,"Webseite - "+wWebseite.strURL+
                         " mit dem Suchbegriff -"+tTestdatum.strSuchbegriff+" wird ausgeführt...");
-                //=====================================================================
-                // Die Seitenspezifischen Methoden aus der jeweiligen Klasse werden aufgerufen
-                // ====================================================================
+
                 wWebseite.VakanzenObject.browserVorbereiten();
                 wWebseite.VakanzenObject.seiteOeffnen();
                 wWebseite.VakanzenObject.benutzerAnmelden();
@@ -51,9 +41,5 @@ public class TestEntryPoint {
             }
             break;
         }
-        //=====================================================================
-        // Logger finish
-        // =====================================================================
-        ExtendetLogger.finish();
     }
 }
