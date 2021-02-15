@@ -1,8 +1,9 @@
 FROM openjdk:11
+ADD target target
 RUN ls -l
 RUN cd target
 RUN ls -l
-ADD target/SeleniumTestobject-1.0-SNAPSHOT.war app.war
+#ADD target/SeleniumTestobject-1.0-SNAPSHOT.war app.war
 
 EXPOSE 8080 80
 ENTRYPOINT ["java","-jar","app.war"]
