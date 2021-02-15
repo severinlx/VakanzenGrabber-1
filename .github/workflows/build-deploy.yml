@@ -3,36 +3,36 @@
 
 name: Maven Package
 
-on: push
-  #release:
-    #types: [created]
-jobs:
-  build:
-    runs-on: ubuntu-latest
+on:
+  release:
+    types: [created]
 
-    steps:
-    - name: Checkout
-      uses: actions/checkout@v2
-      
-    - name: move artifact to target
-      run: |
-        echo "test if target exist 1"
-        pwd
-        mkdir -p target
-        ls -l
-      ###############
-        
-  deploy:
+jobs:
+  build_deploy:
     runs-on: ubuntu-latest
     
+    ### BUILD
+
     steps:
+    - uses: actions/checkout@v2
+    - name: Set up JDK 11
+      uses: actions/setup-java@v1
+      with:
+        java-version: 11
+        server-id: github # Value of the distributionManagement/repository/id field of the pom.xml
+        settings-path: ${{ github.workspace }} # location for the settings.xml file
+
+    - name: Build with Maven
+      run: mvn clean package spring-boot:repackage -DskipTests --file pom.xml
+      
+      ### DEPLOY
+
     - name: Configure AWS credentials
       uses: aws-actions/configure-aws-credentials@v1
       with:
         aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         aws-region: eu-central-1
-
     - name: Login to Amazon ECR
       id: login-ecr
       uses: aws-actions/amazon-ecr-login@v1
@@ -47,7 +47,22 @@ jobs:
         # Build a docker container and
         # push it to ECR so that it can
         # be deployed to ECS.
-        echo "test if target exist 2"
-        ls -l
-        pwd
-        docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG -f Dockerfile.test .
+        docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
+        docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+        echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
+        
+    - name: Fill in the new image ID in the Amazon ECS task definition
+      id: task-def
+      uses: aws-actions/amazon-ecs-render-task-definition@v1
+      with:
+        task-definition: task-definition.json
+        container-name: java-task
+        image: ${{ steps.build-image.outputs.image }}  
+
+    - name: Deploy Amazon ECS task definition
+      uses: aws-actions/amazon-ecs-deploy-task-definition@v1
+      with:
+        task-definition: ${{ steps.task-def.outputs.task-definition }}
+        service: vacation-backend
+        cluster: cluster-vacation
+        wait-for-service-stability: true
