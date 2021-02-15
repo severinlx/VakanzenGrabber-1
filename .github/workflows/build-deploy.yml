@@ -42,6 +42,9 @@ jobs:
       run: |
         mkdir -p target
         mv artifact/SeleniumTestobject-1.0-SNAPSHOT.war target
+        ls -l
+        cd target
+        ls -l
       ###############
     
   deploy_aws:
