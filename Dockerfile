@@ -48,6 +48,6 @@ RUN chmod ugo+w Datentreiber.xlsx
 USER chrome
 
 # Add App
-ADD /home/runner/work/VakanzenGrabber-1/VakanzenGrabber-1/target/SeleniumTestobject-1.0-SNAPSHOT.jar app.jar
+ADD target/*.war app.war
 EXPOSE 8080 80
 ENTRYPOINT ["java","-jar","app.war"]
