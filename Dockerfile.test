@@ -1,5 +1,5 @@
 FROM openjdk:11
-ADD target target
+ADD ./target ./target
 RUN ls -l
 RUN cd target
 RUN ls -l
