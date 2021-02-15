@@ -14,6 +14,7 @@ jobs:
     - name: move artifact to target
       run: |
         echo "test if target exist 1"
+        pwd
         mkdir -p target
         ls -l
         cd target
