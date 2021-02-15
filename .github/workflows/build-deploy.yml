@@ -11,13 +11,14 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+      
     - name: move artifact to target
       run: |
         echo "test if target exist 1"
         pwd
         mkdir -p target
-        ls -l
-        cd target
         ls -l
       ###############
     - name: Configure AWS credentials
