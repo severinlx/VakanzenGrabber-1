@@ -26,7 +26,7 @@ jobs:
       uses: actions/upload-artifact@v1
       with:
         name: artifact
-        path: target/*.war
+        path: target/SeleniumTestobject-1.0-SNAPSHOT.war
   
   artifact_download:
     runs-on: ubuntu-20.04
@@ -41,7 +41,7 @@ jobs:
     - name: move artifact to target
       run: |
         mkdir -p target
-        mv artifact/*.war target
+        mv artifact/SeleniumTestobject-1.0-SNAPSHOT.war target
       ###############
     
   deploy_aws:
