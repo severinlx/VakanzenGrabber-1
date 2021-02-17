@@ -1,6 +1,7 @@
 package eu.fincon;
 
 import java.util.Arrays;
+import java.util.concurrent.TimeUnit;
 
 import com.relevantcodes.extentreports.LogStatus;
 import eu.fincon.Datenverarbeitung.Config;
@@ -17,5 +18,12 @@ public class Application {
     public static void main(String[] args) {
 
         SpringApplication.run(Application.class, args);
+        TestEntryPoint.runTest();
+        try {
+            TimeUnit.SECONDS.sleep(20);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        System.exit(0);
     }
 }

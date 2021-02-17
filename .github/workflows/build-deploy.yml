@@ -3,9 +3,9 @@
 
 name: Maven Package
 
-on: #push
-  release:
-    types: [created]
+on: push
+  #release:
+    #types: [created]
 
 jobs:
   build_deploy:
@@ -57,12 +57,26 @@ jobs:
       with:
         task-definition: task-definition.json
         container-name: java-task
-        image: ${{ steps.build-image.outputs.image }}  
+        image: ${{ steps.build-image.outputs.image }}
 
-    - name: Deploy Amazon ECS task definition
-      uses: aws-actions/amazon-ecs-deploy-task-definition@v1
+    - name: Deploy to Amazon ECS Scheduled Tasks
+      uses: airfordable/ecs-deploy-task-definition-to-scheduled-task@v2.0.0
       with:
-        task-definition: ${{ steps.task-def.outputs.task-definition }}
-        service: vacation-backend
         cluster: cluster-vacation
-        wait-for-service-stability: true
+        rule-prefix: 2hours
+        task-definition: task-definition.json
+
+   # Previously task was deployed to the service.
+   # But the service will mantain the task active forever.
+   # We want the task to stop after the job is complete, in order to save resources. So we have scheduled the task for every 2 hours and deploying it to this scheduler.
+   # The task will be stoped automaticaly, because we use System.exit() inside the SpringBoot Application, after the Data is saved in the Database.
+   # This command stop the underlying Docker container and as the result the task that runs it
+
+   # - name: Deploy Amazon ECS task definition
+   #   uses: aws-actions/amazon-ecs-deploy-task-definition@v1
+   #   with:
+   #     task-definition: ${{ steps.task-def.outputs.task-definition }}
+   #     service: vacation-backend
+   #     cluster: cluster-vacation
+   #     wait-for-service-stability: true
+

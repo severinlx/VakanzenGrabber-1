@@ -3,10 +3,8 @@
 
 FROM markhobson/maven-chrome:jdk-11
 
-RUN mkdir -p /logs
-RUN mkdir -p /results
-RUN chmod ugo+w /var
-RUN chmod ugo+w /logs
+ADD ./results /results
+ADD ./logs /logs
 
 ADD ./extentreports /extentreports
 RUN chmod -R ugo+w /extentreports
