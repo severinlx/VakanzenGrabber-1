@@ -63,8 +63,7 @@ jobs:
       uses: airfordable/ecs-deploy-task-definition-to-scheduled-task@v2.0.0
       with:
         cluster: cluster-vacation
-        #rule-prefix: 2hours
-        task-definition: task-definition.json
+        task-definition: ${{ steps.task-def.outputs.task-definition }}
 
    # Previously task was deployed to the service.
    # But the service will mantain the task active forever.
