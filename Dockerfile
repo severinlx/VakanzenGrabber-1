@@ -4,7 +4,9 @@
 FROM markhobson/maven-chrome:jdk-11
 
 ADD ./results /results
-ADD ./logs /logs
+RUN chmod -R ugo+w /results
+RUN mkdir /logs
+RUN chmod -R ugo+w /logs
 
 ADD ./extentreports /extentreports
 RUN chmod -R ugo+w /extentreports
