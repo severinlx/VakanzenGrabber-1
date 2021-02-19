@@ -12,6 +12,11 @@
             }
          },
          "name": "java-task",
+         "mountPoints": [
+                {
+                    "containerPath": "/efs",
+                    "sourceVolume": "efs"
+                }],
          "portMappings": [ 
             { 
                "containerPort": 8080,
@@ -21,6 +26,15 @@
          ]
       }
    ],
+   "volumes": [
+        {
+            "name": "efs",
+            "efsVolumeConfiguration": {
+                "fileSystemId": "fs-3ff4ff67",
+                "transitEncryption": "ENABLED"
+            }
+        }
+    ],
    "cpu": "256",
    "executionRoleArn": "arn:aws:iam::478526318168:role/ecsTaskExecutionRole",
    "family": "java-task",
