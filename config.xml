@@ -5,7 +5,7 @@
 	<Headless>ja</Headless>
 	<Speicherziel>sqlite</Speicherziel>
 	<DatabaseName>Vakanzengrabber.db</DatabaseName>
-	<DatabasePfad>jdbc:sqlite:.\\results\\</DatabasePfad>
+	<DatabasePfad>jdbc:sqlite:.\\efs\\</DatabasePfad>
 	<Seiten>
 		<!--<Seite name="FreelancerMap" url="http://www.freelancermap.de" benutzername="Manuel.Naas@fincon.eu" passwort="start123#"/>-->
 		<Seite name="FreelanceDE" url="http://www.freelance.de" benutzername="alexandru.severin@fincon.eu" passwort="start123"/>
