@@ -7,6 +7,8 @@ ADD ./results /results
 RUN chmod -R ugo+w /results
 RUN mkdir /logs
 RUN chmod -R ugo+w /logs
+RUN mkdir /efs
+RUN chmod -R ugo+w /efs
 
 ADD ./extentreports /extentreports
 RUN chmod -R ugo+w /extentreports
