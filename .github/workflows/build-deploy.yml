@@ -62,7 +62,7 @@ jobs:
     - name: Deploy to Amazon ECS Scheduled Tasks
       uses: airfordable/ecs-deploy-task-definition-to-scheduled-task@v2.0.0
       with:
-        cluster: cluster-vacation
+        cluster: default #cluster-vacation
         task-definition: ${{ steps.task-def.outputs.task-definition }}
 
    # Previously task was deployed to the service.
