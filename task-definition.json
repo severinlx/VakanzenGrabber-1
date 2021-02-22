@@ -1,6 +1,12 @@
 {
    "containerDefinitions": [ 
-      { 
+      {
+        "command": [
+          "/bin/sh df -T" ],
+        "entryPoint": [
+          "sh",
+          "-c"
+        ],
          "essential": true,
          "image": "478526318168.dkr.ecr.eu-central-1.amazonaws.com/vacation-backend:6a9a41d17e178b1a3590247c212f38180d58d827",
          "logConfiguration": { 
