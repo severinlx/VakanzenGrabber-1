@@ -1,5 +1,5 @@
-FROM openjdk:11
-ADD target/*.war app.war
+FROM alpine
+RUN mkdir /efs
+RUN chmod -R ugo+w /efs
 
 EXPOSE 8080 80
-ENTRYPOINT ["java","-jar","app.war"]
