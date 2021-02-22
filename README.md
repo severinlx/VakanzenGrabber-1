@@ -21,3 +21,6 @@ mvn spring-boot:run
 ## Check API
 curl -i http://localhost:8080/get/results
 
+##start task, choose revision 1.4
+##security groub, add inbound rule for efs
+
