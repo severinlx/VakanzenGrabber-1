@@ -2,7 +2,7 @@
    "containerDefinitions": [ 
       {
         "command": [
-          "/bin/sh df -T" ],
+          "/bin/sh cd efs && ls" ],
         "entryPoint": [
           "sh",
           "-c"
