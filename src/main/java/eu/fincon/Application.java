@@ -1,5 +1,7 @@
 package eu.fincon;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.concurrent.TimeUnit;
 
@@ -18,12 +20,27 @@ public class Application {
     public static void main(String[] args) {
 
         SpringApplication.run(Application.class, args);
-        TestEntryPoint.runTest();
+        doFile();
+        //TestEntryPoint.runTest();
         try {
             TimeUnit.SECONDS.sleep(20);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
         System.exit(0);
+    }
+
+    public static void doFile(){
+        try {
+            File myObj = new File("./efs/filename.txt");
+            if (myObj.createNewFile()) {
+                System.out.println("File created: " + myObj.getName());
+            } else {
+                System.out.println("File already exists.");
+            }
+        } catch (IOException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+        }
     }
 }
