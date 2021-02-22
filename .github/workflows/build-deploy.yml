@@ -3,9 +3,9 @@
 
 name: Maven Package
 
-on: #push
+on: push
   release:
-    #types: [created]
+    types: [created]
 
 jobs:
   build_deploy:
