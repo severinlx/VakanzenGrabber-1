@@ -21,6 +21,10 @@ public class Application {
 
         SpringApplication.run(Application.class, args);
         System.out.println("in the application");
+        System.out.println("show the files in ./efs");
+        showFiles("./efs");
+        System.out.println("show the files in /efs");
+        showFiles("/efs");
         doFile();
         //TestEntryPoint.runTest();
         try {
@@ -29,6 +33,23 @@ public class Application {
             e.printStackTrace();
         }
         //System.exit(0);
+    }
+
+    private static void showFiles(String s) {
+
+        // Creates an array in which we will store the names of files and directories
+        String[] pathnames;
+
+        File f = new File(s);
+
+        // Populates the array with names of files and directories
+        pathnames = f.list();
+
+        // For each pathname in the pathnames array
+        for (String pathname : pathnames) {
+            // Print the names of files and directories
+            System.out.println(pathname);
+        }
     }
 
     public static void doFile(){
