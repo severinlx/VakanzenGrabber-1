@@ -20,19 +20,21 @@ public class Application {
     public static void main(String[] args) {
 
         SpringApplication.run(Application.class, args);
-        System.out.println("in the application");
-        System.out.println("show the files in ./efs");
-        showFiles("./efs");
-        System.out.println("show the files in /efs");
-        showFiles("/efs");
-        doFile();
-        //TestEntryPoint.runTest();
+        TestEntryPoint.runTest();
+
         try {
-            TimeUnit.SECONDS.sleep(20);
+            TimeUnit.SECONDS.sleep(5);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        //System.exit(0);
+        System.out.println("show the files in /efs");
+        showFiles("/efs");
+        try {
+            TimeUnit.SECONDS.sleep(5);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        System.exit(0);
     }
 
     private static void showFiles(String s) {
