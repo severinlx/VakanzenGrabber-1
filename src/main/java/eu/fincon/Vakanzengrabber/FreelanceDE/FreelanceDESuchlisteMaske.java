@@ -36,6 +36,7 @@ public class FreelanceDESuchlisteMaske extends VakanzenGrabber {
         if (ListeSuchergebnisse==null || ListeSuchergebnisse.size()==0)
             return true;
         try {
+            System.out.println("before suchergebnisse sichern in DeSuchlisteMaske");
             Ergebnis = sucheinträgeSichern(ListeSuchergebnisse, Config.stSpeicherTyp);
         } catch (InterruptedException e) {
             LogEntry(LogStatus.INFO, "Exception:<br>" + e.getMessage());
@@ -46,6 +47,7 @@ public class FreelanceDESuchlisteMaske extends VakanzenGrabber {
         //=====================================================================
         // Variablendeklaration
         // =====================================================================
+        System.out.println("inserate sicehern in Free");
         boolean blnErgebnis;
         boolean blnNeueSeiteButton = false;
         List<Inserat> lInserate = new ArrayList<Inserat>();

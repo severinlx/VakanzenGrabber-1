@@ -75,6 +75,7 @@ public class InserateVerwalten {
         return strTabellenName;
     }
     public void insertIntoSQLite(Inserat piInserat, Connection pConnection, String pstrTabellenname, int pintID) {
+        System.out.println("insert into SQL Lite");
         PreparedStatement stmt = null;
 
         //String sql = "INSERT INTO "+ pstrTabellenname +" (" + Inserat.getSQLiteSpalten() + ") VALUES(" + piInserat.getInseratStringSQLite() + ")";
@@ -108,6 +109,7 @@ public class InserateVerwalten {
 
         try {
             ExtendetLogger.LogEntry(LogStatus.INFO, "Insert Statement - " + stmt.toString());
+            System.out.println("after preparing insert statement");
             System.out.println("Insert Statement - " + stmt.toString());
             stmt.execute();
             ExtendetLogger.LogEntry(LogStatus.PASS, "Insert Statement Executed");
@@ -160,6 +162,7 @@ public class InserateVerwalten {
     }
     private void sqliteOutput(String pstrTabellenName)
     {
+        System.out.println("sqlOutput in Inserate Verwalten");
         Connection conn = this.connectToSQLLiteDatabase();
         try {
             // Damit wird die AutoCommit deaktiviert

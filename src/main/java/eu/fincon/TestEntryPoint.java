@@ -38,6 +38,7 @@ public class TestEntryPoint {
                 wWebseite.VakanzenObject.benutzerAnmelden();
                 wWebseite.VakanzenObject.sucheDurchfuehren(tTestdatum);
                 wWebseite.VakanzenObject.suchlisteSichern();
+                System.out.println("nach der suchliSte sichern in TestEntrypoint");
                 wWebseite.VakanzenObject.seiteSchließen();
                 ExtendetLogger.AppendChild();
             }
