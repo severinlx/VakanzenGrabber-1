@@ -27,8 +27,8 @@ public class Application {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        System.out.println("show the files in /efs");
-        showFiles("/efs");
+        System.out.println("show the files in ./efs");
+        showFiles("./efs");
         try {
             TimeUnit.SECONDS.sleep(5);
         } catch (InterruptedException e) {
