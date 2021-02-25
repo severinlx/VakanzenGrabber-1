@@ -2,6 +2,9 @@ package eu.fincon;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
 import java.util.Arrays;
 import java.util.concurrent.TimeUnit;
 
@@ -27,6 +30,7 @@ public class Application {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+        persistResults();
         System.out.println("show the files in ./efs");
         showFiles("./efs");
         try {
@@ -34,7 +38,19 @@ public class Application {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        System.exit(0);
+        //System.exit(0);
+    }
+
+    private static void persistResults() {
+        try {
+            Files.copy(
+                    new File(System.getProperty("user.dir") + "/"+Config.strDatabaseName).toPath(),
+                    new File(System.getProperty("user.dir") + "/efs/data.db").toPath(),
+                    StandardCopyOption.REPLACE_EXISTING);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 
     private static void showFiles(String s) {

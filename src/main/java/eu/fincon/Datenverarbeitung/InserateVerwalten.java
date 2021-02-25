@@ -30,9 +30,11 @@ public class InserateVerwalten {
     {
         // SQLite connection string
         String url = Config.strDatabasePfad + Config.strDatabaseName;
+        System.out.println("url: " + url);
         Connection conn = null;
         try {
             conn = DriverManager.getConnection(url);
+            System.out.println("after set connection");
         } catch (SQLException e) {
             ExtendetLogger.LogEntry(LogStatus.ERROR, "Failed to connect to Database - " + url);
         }
@@ -169,17 +171,25 @@ public class InserateVerwalten {
             // Dieser führte dazu, dass mit jedem Statement ein Commit durchgeführt wurde - Was zu einer Exception geführt hat
             // Der Commit wird "manuell" im Code nach dem Statement ausgeführt
             conn.setAutoCommit(false);
+            System.out.println("after set Autocommit");
         }
         catch (SQLException e)
         {
+            System.out.println("exception in Autocommit");
             ExtendetLogger.LogEntry(LogStatus.INFO, "Failed to Set AutoCommitMode");
         }
+        System.out.println("before create new table");
         pstrTabellenName = createNewTable(conn, pstrTabellenName);
         ExtendetLogger.LogEntry(LogStatus.INFO, "Inserate werden gesichert... ");
         int intIndex = 1;
+
+        System.out.println("before insert loop");
         for (Inserat iInserat:lInserate) {
             ExtendetLogger.LogEntry(LogStatus.INFO, "Inserat sichern: " + iInserat.toString());
+
+            System.out.println("before insert row");
             insertIntoSQLite(iInserat, conn, pstrTabellenName, intIndex);
+            System.out.println("after insert row");
             intIndex++;
         }
     }
