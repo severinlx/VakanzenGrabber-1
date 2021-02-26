@@ -20,25 +20,16 @@ import org.springframework.context.annotation.Bean;
 @SpringBootApplication(exclude = SecurityAutoConfiguration.class)
 public class Application {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
 
         SpringApplication.run(Application.class, args);
         TestEntryPoint.runTest();
-
-        try {
-            TimeUnit.SECONDS.sleep(5);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        TimeUnit.SECONDS.sleep(5);
         persistResults();
         System.out.println("show the files in ./efs");
         showFiles("./efs");
-        try {
-            TimeUnit.SECONDS.sleep(5);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        //System.exit(0);
+        TimeUnit.SECONDS.sleep(5);
+        System.exit(0);
     }
 
     private static void persistResults() {
@@ -70,7 +61,7 @@ public class Application {
         }
     }
 
-    public static void doFile(){
+    public static void writeToFile(){
         try {
             File myObj = new File("./efs/filename.txt");
             if (myObj.createNewFile()) {
