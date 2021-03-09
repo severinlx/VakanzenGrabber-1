@@ -23,13 +23,13 @@ public class Application {
     public static void main(String[] args) throws InterruptedException {
 
         SpringApplication.run(Application.class, args);
-        TestEntryPoint.runTest();
-        TimeUnit.SECONDS.sleep(5);
-        persistResults();
-        System.out.println("show the files in ./efs");
-        showFiles("./efs");
-        TimeUnit.SECONDS.sleep(5);
-        System.exit(0);
+        //TestEntryPoint.runTest();
+        //TimeUnit.SECONDS.sleep(5);
+        //persistResults();
+        //System.out.println("show the files in ./efs");
+        //showFiles("./efs");
+        //TimeUnit.SECONDS.sleep(5);
+        //System.exit(0);
     }
 
     private static void persistResults() {
