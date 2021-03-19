@@ -78,6 +78,6 @@ jobs:
       with:
         task-definition: ${{ steps.task-def.outputs.task-definition }}
         service: backend
-        cluster: ec2
+        cluster: cluster-vacation
         wait-for-service-stability: true
 
