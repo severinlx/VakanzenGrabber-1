@@ -8,6 +8,10 @@ import eu.fincon.Datenverarbeitung.Webseite;
 import eu.fincon.Logging.ExtendetLogger;
 import org.testng.annotations.Test;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 import java.util.List;
 import java.util.logging.Level;
 
@@ -43,6 +47,48 @@ public class TestEntryPoint {
                 ExtendetLogger.AppendChild();
             }
             break;
+        }
+    }
+    public static void persistResults() {
+        try {
+            Files.copy(
+                    new File(System.getProperty("user.dir") + "/"+Config.strDatabaseName).toPath(),
+                    new File(System.getProperty("user.dir") + "/efs/data.db").toPath(),
+                    StandardCopyOption.REPLACE_EXISTING);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public static void showFiles(String s) {
+
+        // Creates an array in which we will store the names of files and directories
+        String[] pathnames;
+
+        File f = new File(s);
+
+        // Populates the array with names of files and directories
+        pathnames = f.list();
+
+        // For each pathname in the pathnames array
+        for (String pathname : pathnames) {
+            // Print the names of files and directories
+            System.out.println(pathname);
+        }
+    }
+
+    public static void writeToFile() {
+        try {
+            File myObj = new File("./efs/filename.txt");
+            if (myObj.createNewFile()) {
+                System.out.println("File created: " + myObj.getName());
+            } else {
+                System.out.println("File already exists.");
+            }
+        } catch (IOException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
         }
     }
 }

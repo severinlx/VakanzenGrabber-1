@@ -1,5 +1,5 @@
-# build with
-#docker build -t chrome:2.0 -f Dockerfile.dev .
+#To build image: docker build -t chrome:2.0 -f Dockerfile.dev .
+#To run container: docker run -p 8080:8080 chrome:
 
 FROM markhobson/maven-chrome:jdk-11
 
